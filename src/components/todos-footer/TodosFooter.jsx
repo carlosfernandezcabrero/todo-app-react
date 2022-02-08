@@ -4,9 +4,13 @@ import { ButtonFilter } from '../button-filter/ButtonFilter'
 import './TodosFooter.css'
 
 export const TodosFooter = () => {
-  const { state } = useContext(todosContext)
+  const { state, dispatch } = useContext(todosContext)
 
   const leftTodos = state.filter(todo => !todo.isCompleted)
+
+  function handleDeleteCompleted () {
+    dispatch({ type: 'deleteCompleted' })
+  }
 
   return (
     <div className="footer divide-y">
@@ -19,7 +23,17 @@ export const TodosFooter = () => {
           <ButtonFilter name="Active" filterValue={false} />
           <ButtonFilter name="Completed" filterValue={true} />
         </div>
-        <div></div>
+        <div className="text-right">
+          {state.length > leftTodos.length && (
+            <button
+              onClick={handleDeleteCompleted}
+              className="font-thin"
+              aria-label="deleteCompleted"
+            >
+              Clear Completed
+            </button>
+          )}
+        </div>
       </div>
       <div className="w-[98%] h-1.5 bg-[#fff] mx-auto"></div>
       <div className="w-[96%] h-1.5 bg-[#fff] mx-auto"></div>

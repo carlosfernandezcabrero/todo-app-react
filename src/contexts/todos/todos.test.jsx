@@ -1,6 +1,6 @@
+import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { actions, reducer, TodosProvider } from './todos'
-import { render } from '@testing-library/react'
 
 describe('Pruebas sobre el contexto de los todos', () => {
   describe('Pruebas sobre las acciones', () => {
@@ -14,6 +14,14 @@ describe('Pruebas sobre el contexto de los todos', () => {
     test('debe borrar un todo', () => {
       const actual = actions.delete([{ id: 1 }], 1)
       expect(actual.length).toBe(0)
+    })
+
+    test('debe borrar todos los Todos completados', () => {
+      const actual = actions.deleteCompleted([
+        { isCompleted: true },
+        { isCompleted: false }
+      ])
+      expect(actual.length).toBe(1)
     })
 
     test('debe marcar como completado un todo', () => {

@@ -14,6 +14,10 @@ export const actions = {
     const newState = state.filter(({ id }) => id !== payload)
     return newState
   },
+  deleteCompleted: (state, payload) => {
+    const newState = state.filter(({ isCompleted }) => !isCompleted)
+    return newState
+  },
   toggleComplete: (state, payload) => {
     const newState = state.map((todo) =>
       todo.id === payload ? { ...todo, isCompleted: !todo.isCompleted } : todo
