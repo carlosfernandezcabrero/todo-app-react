@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.app__title {
+  color: rgba(175, 47, 47, 0.15);
+}
+
+.todos__item > input {
+  color: -internal-light-dark(black, white);
+}
