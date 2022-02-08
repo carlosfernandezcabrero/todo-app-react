@@ -13,7 +13,7 @@ export const TodosFooter = () => {
   }
 
   return (
-    <div className="footer divide-y">
+    <div className="footer">
       <div className="grid grid-cols-3 py-3 px-5 font-thin text-[14px] text-[#777] bg-[#fff]">
         <div className="text-left">
           <p>{leftTodos.length} items left</p>
@@ -35,8 +35,6 @@ export const TodosFooter = () => {
           )}
         </div>
       </div>
-      <div className="w-[98%] h-1.5 bg-[#fff] mx-auto"></div>
-      <div className="w-[96%] h-1.5 bg-[#fff] mx-auto"></div>
     </div>
   )
 }

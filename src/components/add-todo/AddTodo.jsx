@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { context } from '../../contexts/todos/todos'
 import { CaretDownIcon } from '../icons/caret-down/CaretDownIcon'
 import { CaretDownSelectedIcon } from '../icons/caret-down/CaretDownSelectedIcon'
+import './AddTodo.css'
 
 export const AddTodo = () => {
   const { state, dispatch } = useContext(context)
