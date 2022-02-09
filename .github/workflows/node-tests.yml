@@ -15,5 +15,8 @@ jobs:
         node-version: '16.x'
         registry-url: 'https://registry.npmjs.org'
     
+    - name: Install dev dependencies
+      run: npm install --only=dev
+      
     - name: Run unit tests
       run : npm run test
