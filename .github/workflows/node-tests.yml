@@ -1,4 +1,4 @@
-name: Test project
+name: Test and build project
 
 on:
   pull_request:

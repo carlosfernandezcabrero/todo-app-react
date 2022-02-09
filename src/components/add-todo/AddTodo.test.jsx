@@ -28,7 +28,7 @@ describe('Pruebas sobre el componente <AddTodo/>', () => {
 
     fireEvent.click(component.getByLabelText('selectAll'))
 
-    expect(mockDispatch).toHaveBeenCalledTimes(2)
+    expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'toggleSelected'
     })
