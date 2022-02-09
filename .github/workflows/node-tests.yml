@@ -1,0 +1,13 @@
+name: Test project
+
+on:
+  push:
+    branches: ['**']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Display my first "Hello, world!"
+    - run: echo Hello, world!
