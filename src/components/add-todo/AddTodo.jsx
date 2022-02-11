@@ -27,10 +27,10 @@ export const AddTodo = () => {
   }
 
   return (
-    <div className="todos-add text-2xl text-left py-4 px-3 bg-[#fff] flex items-center gap-6">
+    <div className="todos-add text-2xl text-left py-4 px-3 bg-[#fff] flex items-center sm:gap-6 gap-1">
       <button
         type="button"
-        className="w-8"
+        className="sm:w-8 w-12"
         onClick={handleCompleteAll}
         aria-label="selectAll"
       >
