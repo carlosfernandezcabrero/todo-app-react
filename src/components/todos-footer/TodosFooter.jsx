@@ -18,7 +18,7 @@ export const TodosFooter = () => {
         <div className="text-left">
           <p>{leftTodos.length} items left</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3 flex-wrap">
           <ButtonFilter name="All" />
           <ButtonFilter name="Active" filterValue={false} />
           <ButtonFilter name="Completed" filterValue={true} />
