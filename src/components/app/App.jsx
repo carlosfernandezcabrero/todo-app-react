@@ -1,6 +1,7 @@
 import { TodosFilterProvider } from '../../contexts/todos-filter/todosFilter'
 import { TodosProvider } from '../../contexts/todos/todos'
 import { AddTodo } from '../add-todo/AddTodo'
+import { Footer } from '../Footer'
 import { TodosList } from '../todos-list/TodosList'
 import './App.css'
 
@@ -15,6 +16,7 @@ function App () {
             <TodosList />
           </TodosFilterProvider>
         </div>
+        <Footer />
       </div>
     </TodosProvider>
   )
