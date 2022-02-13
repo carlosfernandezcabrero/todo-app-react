@@ -1,8 +1,8 @@
-import { TodosFilterProvider } from '../../contexts/todos-filter/todosFilter'
-import { TodosProvider } from '../../contexts/todos/todos'
-import { AddTodo } from '../add-todo/AddTodo'
-import { Footer } from '../Footer'
-import { TodosList } from '../todos-list/TodosList'
+import { AddTodo } from 'components/add-todo/AddTodo'
+import { Footer } from 'components/Footer'
+import { TodosList } from 'components/todos-list/TodosList'
+import { TodosFilterProvider } from 'contexts/todos-filter/todosFilter'
+import { TodosProvider } from 'contexts/todos/todos'
 import './App.css'
 
 function App () {

@@ -1,7 +1,7 @@
+import { CaretDownIcon } from 'components/icons/caret-down/CaretDownIcon'
+import { CaretDownSelectedIcon } from 'components/icons/caret-down/CaretDownSelectedIcon'
+import { context } from 'contexts/todos/todos'
 import { useContext, useState } from 'react'
-import { context } from '../../contexts/todos/todos'
-import { CaretDownIcon } from '../icons/caret-down/CaretDownIcon'
-import { CaretDownSelectedIcon } from '../icons/caret-down/CaretDownSelectedIcon'
 import './AddTodo.css'
 
 export const AddTodo = () => {

@@ -1,6 +1,6 @@
+import { ButtonFilter } from 'components/button-filter/ButtonFilter'
+import { context as todosContext } from 'contexts/todos/todos'
 import { useContext } from 'react'
-import { context as todosContext } from '../../contexts/todos/todos'
-import { ButtonFilter } from '../button-filter/ButtonFilter'
 import './TodosFooter.css'
 
 export const TodosFooter = () => {

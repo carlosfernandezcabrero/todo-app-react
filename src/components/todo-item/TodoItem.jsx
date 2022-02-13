@@ -1,8 +1,8 @@
+import { CheckIcon } from 'components/icons/CheckIcon'
+import { CloseIcon } from 'components/icons/CloseIcon'
+import { context } from 'contexts/todos/todos'
 import propTypes from 'prop-types'
 import { useContext } from 'react'
-import { context } from '../../contexts/todos/todos'
-import { CheckIcon } from '../icons/CheckIcon'
-import { CloseIcon } from '../icons/CloseIcon'
 
 export const TodoItem = ({ todo }) => {
   const { dispatch } = useContext(context)
