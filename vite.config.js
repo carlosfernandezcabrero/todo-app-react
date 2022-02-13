@@ -7,7 +7,7 @@ function getAbsolutePaths () {
   const aliases = {}
 
   readdirSync('./src', { withFileTypes: true })
-    .filter(({ isDirectory }) => isDirectory())
+    .filter((dir) => dir.isDirectory())
     .forEach(
       ({ name }) => (aliases[name] = resolve(process.cwd(), 'src', name))
     )
