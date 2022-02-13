@@ -24,6 +24,15 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     cleanup()
   })
 
+  test('debe renderizar se correctamente', () => {
+    const item = defaultItem()
+    const component = renderComponent(item)
+
+    component.getByText(item.value)
+
+    expect(document.getElementsByTagName('svg').length).toBe(2)
+  })
+
   test('debe renderizar correctamente cuando esta seleccionado el item', () => {
     const component = renderComponent(defaultItem(true))
 
