@@ -1,4 +1,6 @@
-export const CaretDownIcon = () => {
+import React from 'react'
+
+const CaretDownIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,3 +17,5 @@ export const CaretDownIcon = () => {
     </svg>
   )
 }
+
+export default React.memo(CaretDownIcon)
