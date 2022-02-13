@@ -29,23 +29,15 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const component = renderComponent(item)
 
     component.getByText(item.value)
-
-    expect(document.getElementsByTagName('svg').length).toBe(2)
   })
 
   test('debe renderizar correctamente cuando esta seleccionado el item', () => {
-    const component = renderComponent(defaultItem(true))
-
-    component.getByText('Boba Fett')
-
+    renderComponent(defaultItem(true))
     expect(document.getElementsByTagName('svg').length).toBe(2)
   })
 
   test('debe renderizar correctamente cuando no esta seleccionado el item', () => {
-    const component = renderComponent(defaultItem())
-
-    component.getByText('Boba Fett')
-
+    renderComponent(defaultItem())
     expect(document.getElementsByTagName('svg').length).toBe(1)
   })
 
