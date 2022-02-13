@@ -1,4 +1,4 @@
-import { Footer } from 'components/footer/index'
+import { Footer } from 'components/footer'
 import { Todos } from 'components/todos'
 import { TodosProvider } from 'contexts/todos/todos'
 import './App.css'

@@ -1,5 +1,5 @@
-import { AddTodo } from 'components/add-todo/AddTodo'
-import { TodosList } from 'components/todos-list/TodosList'
+import { AddTodo } from 'components/todos/add-todo/AddTodo'
+import { TodosList } from 'components/todos/todos-list/TodosList'
 import { TodosFilterProvider } from 'contexts/todos-filter/todosFilter'
 
 export const Todos = () => {
