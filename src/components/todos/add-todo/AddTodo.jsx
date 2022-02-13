@@ -1,5 +1,5 @@
-import { CaretDownIcon } from 'components/icons/caret-down/CaretDownIcon'
-import { CaretDownSelectedIcon } from 'components/icons/caret-down/CaretDownSelectedIcon'
+import CaretDownIcon from 'components/icons/caret-down/CaretDownIcon'
+import CaretDownSelectedIcon from 'components/icons/caret-down/CaretDownSelectedIcon'
 import { context } from 'contexts/todos/todos'
 import { useContext, useState } from 'react'
 import './AddTodo.css'
