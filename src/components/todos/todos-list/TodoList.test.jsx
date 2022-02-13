@@ -11,9 +11,9 @@ vi.mock('react', async () => ({
 const renderComponent = () => render(<TodosList />)
 
 const defaultState = [
-  { isCompleted: true, id: 1 },
-  { isCompleted: true, id: 2 },
-  { isCompleted: false, id: 3 }
+  { isCompleted: true, id: '1' },
+  { isCompleted: true, id: '2' },
+  { isCompleted: false, id: '3' }
 ]
 
 describe('Pruebas sobre el componente <TodoList/>', () => {
