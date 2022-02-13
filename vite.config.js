@@ -6,11 +6,11 @@ import { defineConfig } from 'vite'
 function getAbsolutePaths () {
   const aliases = {}
 
-  readdirSync('./src', { withFileTypes: true }).filter((dir) =>
-    dir.isDirectory()
-  ).forEach(({ name }) => {
-    aliases[name] = resolve(process.cwd(), 'src', name)
-  })
+  readdirSync('./src', { withFileTypes: true })
+    .filter(({ isDirectory }) => isDirectory())
+    .forEach(
+      ({ name }) => (aliases[name] = resolve(process.cwd(), 'src', name))
+    )
 
   return aliases
 }
