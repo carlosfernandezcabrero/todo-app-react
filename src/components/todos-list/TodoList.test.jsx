@@ -8,9 +8,7 @@ vi.mock('react', async () => ({
   useContext: vi.fn()
 }))
 
-function renderComponent () {
-  return render(<TodosList />)
-}
+const renderComponent = () => render(<TodosList />)
 
 describe('Pruebas sobre el componente <TodoList/>', () => {
   afterEach(() => {

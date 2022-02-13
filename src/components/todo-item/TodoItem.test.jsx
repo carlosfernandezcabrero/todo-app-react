@@ -10,11 +10,7 @@ vi.mock('react', async () => ({
   })
 }))
 
-function renderComponent (item) {
-  return render(
-    <TodoItem todo={item}/>
-  )
-}
+const renderComponent = (item) => render(<TodoItem todo={item} />)
 
 const defaultItem = (completed) => ({
   isCompleted: completed,
