@@ -7,21 +7,18 @@ import { useContext } from 'react'
 export const TodoItem = ({ todo }) => {
   const { dispatch } = useContext(context)
 
-  function handleComplete (id) {
+  const handleComplete = (id) =>
     dispatch({ type: 'toggleComplete', payload: id })
-  }
 
-  function handleDelete (id) {
-    dispatch({ type: 'delete', payload: id })
-  }
+  const handleDelete = (id) => dispatch({ type: 'delete', payload: id })
 
   return (
     <li className="todo pl-3 pr-4 py-3 flex items-center">
       <div className="todo__content flex-1 flex items-center justify-between gap-6 font-thin">
         <button
           type="button"
-          role='checkbox'
-          aria-label='complete'
+          role="checkbox"
+          aria-label="complete"
           className="h-[30px] w-[30px] border border-[#77bfaf] rounded-full flex items-center justify-center"
           onClick={() => handleComplete(todo.id)}
         >
@@ -37,8 +34,8 @@ export const TodoItem = ({ todo }) => {
       </div>
       <button
         type="button"
-        role='button'
-        aria-label='delete'
+        role="button"
+        aria-label="delete"
         onClick={() => handleDelete(todo.id)}
         className="todo__close hidden w-6"
       >

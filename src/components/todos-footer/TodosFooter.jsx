@@ -8,9 +8,7 @@ export const TodosFooter = () => {
 
   const leftTodos = state.filter(todo => !todo.isCompleted)
 
-  function handleDeleteCompleted () {
-    dispatch({ type: 'deleteCompleted' })
-  }
+  const handleDeleteCompleted = () => dispatch({ type: 'deleteCompleted' })
 
   return (
     <div className="footer">
