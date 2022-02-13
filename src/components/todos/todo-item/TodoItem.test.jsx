@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render } from '@testing-library/react'
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { TodoItem } from './TodoItem'
+import TodoItem from './TodoItem'
 
 const mockDispatch = vi.fn()
 vi.mock('react', async () => ({
@@ -10,11 +10,11 @@ vi.mock('react', async () => ({
   })
 }))
 
-const renderComponent = (item) => render(<TodoItem todo={item} />)
+const renderComponent = (item) => render(<TodoItem {...item} />)
 
-const defaultItem = (completed) => ({
+const defaultItem = (completed = false) => ({
   isCompleted: completed,
-  id: 1,
+  id: '1',
   value: 'Boba Fett'
 })
 
@@ -26,32 +26,42 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
   test('debe renderizar correctamente cuando esta seleccionado el item', () => {
     const component = renderComponent(defaultItem(true))
+
     component.getByText('Boba Fett')
+
     expect(document.getElementsByTagName('svg').length).toBe(2)
   })
 
   test('debe renderizar correctamente cuando no esta seleccionado el item', () => {
-    const component = renderComponent(defaultItem(false))
+    const component = renderComponent(defaultItem())
+
     component.getByText('Boba Fett')
+
     expect(document.getElementsByTagName('svg').length).toBe(1)
   })
 
   test('debe lanzar la acción de completar un Todo', () => {
-    const component = renderComponent(defaultItem(true))
+    const item = defaultItem(true)
+    const component = renderComponent(item)
+
     fireEvent.click(component.getByLabelText('complete'))
+
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({
-      payload: 1,
+      payload: item.id,
       type: 'toggleComplete'
     })
   })
 
   test('debe lanzar la acción de borrar un Todo', () => {
-    const component = renderComponent(defaultItem(true))
+    const item = defaultItem(true)
+    const component = renderComponent(item)
+
     fireEvent.click(component.getByLabelText('delete'))
+
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({
-      payload: 1,
+      payload: item.id,
       type: 'delete'
     })
   })
