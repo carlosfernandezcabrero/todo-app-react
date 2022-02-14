@@ -24,7 +24,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     cleanup()
   })
 
-  test('debe renderizar se correctamente', () => {
+  test.concurrent('debe renderizar se correctamente', () => {
     const item = defaultItem()
     const component = renderComponent(item)
 
@@ -36,7 +36,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     expect(document.getElementsByTagName('svg').length).toBe(2)
   })
 
-  test('debe renderizar correctamente cuando no esta seleccionado el item', () => {
+  test.concurrent('debe renderizar correctamente cuando no esta seleccionado el item', () => {
     renderComponent(defaultItem())
     expect(document.getElementsByTagName('svg').length).toBe(1)
   })
@@ -54,7 +54,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     })
   })
 
-  test('debe lanzar la acción de borrar un Todo', () => {
+  test.concurrent('debe lanzar la acción de borrar un Todo', () => {
     const item = defaultItem(true)
     const component = renderComponent(item)
 

@@ -22,7 +22,7 @@ describe('Pruebas sobre el componente <AddTodo/>', () => {
     cleanup()
   })
 
-  test('debe llamar a la acción "toggleSelected" cuando se hace click en el caret', () => {
+  test.concurrent('debe llamar a la acción "toggleSelected" cuando se hace click en el caret', () => {
     useState.mockReturnValue(['', mockSetTodo])
     const component = renderComponent([])
 
@@ -34,13 +34,13 @@ describe('Pruebas sobre el componente <AddTodo/>', () => {
     })
   })
 
-  test('debe llamar mostrar el caret con el color "#e6e6e6" cuando no están todos los Todos completados', () => {
+  test.concurrent('debe llamar mostrar el caret con el color "#e6e6e6" cuando no están todos los Todos completados', () => {
     useState.mockReturnValue(['', mockSetTodo])
     renderComponent([{ isCompleted: false, id: 1 }])
     expect(document.getElementsByClassName('stroke-[#e6e6e6]').length).toBe(1)
   })
 
-  test('debe llamar mostrar el caret con el color "#737373" cuando están todos los Todos completados', () => {
+  test.concurrent('debe llamar mostrar el caret con el color "#737373" cuando están todos los Todos completados', () => {
     useState.mockReturnValue(['', mockSetTodo])
     renderComponent([{ isCompleted: true, id: 1 }])
     expect(document.getElementsByClassName('stroke-[#737373]').length).toBe(1)
@@ -52,7 +52,7 @@ describe('Pruebas sobre el componente <AddTodo/>', () => {
     expect(document.getElementsByTagName('svg').length).toBe(0)
   })
 
-  test('debe llamar la acción "add" cuando se presione la tecla enter en el input y este relleno', () => {
+  test.concurrent('debe llamar la acción "add" cuando se presione la tecla enter en el input y este relleno', () => {
     useState.mockReturnValue(['abc', mockSetTodo])
     const component = renderComponent([])
     const input = component.getByPlaceholderText('What needs to be done?')
