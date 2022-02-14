@@ -18,7 +18,7 @@ describe('Pruebas sobre el componente <TodosFooter/>', () => {
     cleanup()
   })
 
-  test('debe renderizar correctamente los Todos que faltan por completar', () => {
+  test.concurrent('debe renderizar correctamente los Todos que faltan por completar', () => {
     const component = renderComponent()
     component.getByText('1 items left')
   })

@@ -21,7 +21,7 @@ describe('Pruebas sobre el componente <TodoList/>', () => {
     cleanup()
   })
 
-  test('debe no mostrar nada cuando no hay todos', () => {
+  test.concurrent('debe no mostrar nada cuando no hay todos', () => {
     useContext.mockReturnValue({
       state: []
     })
@@ -29,7 +29,7 @@ describe('Pruebas sobre el componente <TodoList/>', () => {
     expect(component.container.outerHTML).toBe('<div></div>')
   })
 
-  test('debe mostrar todos los Todos cuando el valor del todosFilter sea undefined', () => {
+  test.concurrent('debe mostrar todos los Todos cuando el valor del todosFilter sea undefined', () => {
     useContext.mockReturnValue({
       state: defaultState,
       todosFilter: undefined
@@ -47,7 +47,7 @@ describe('Pruebas sobre el componente <TodoList/>', () => {
     expect(document.getElementsByTagName('li').length).toBe(2)
   })
 
-  test('debe mostrar solo los Todos no completados cuando el valor del todosFilter sea False', () => {
+  test.concurrent('debe mostrar solo los Todos no completados cuando el valor del todosFilter sea False', () => {
     useContext.mockReturnValue({
       state: defaultState,
       todosFilter: false

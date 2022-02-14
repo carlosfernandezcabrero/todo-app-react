@@ -24,7 +24,7 @@ describe('Pruebas sobre el componente <ButtonFilter/>', () => {
     cleanup()
   })
 
-  test('debe renderizar se correctamente', () => {
+  test.concurrent('debe renderizar se correctamente', () => {
     const component = renderComponent()
     component.getByText('Click')
   })
@@ -36,7 +36,7 @@ describe('Pruebas sobre el componente <ButtonFilter/>', () => {
     expect(mockSetTodosFilter).toHaveBeenCalledWith(true)
   })
 
-  test('debe marcar se como seleccionado cuando el valor en el context del todosFilter es igual al que se le pasa en el filterValue', () => {
+  test.concurrent('debe marcar se como seleccionado cuando el valor en el context del todosFilter es igual al que se le pasa en el filterValue', () => {
     renderComponent(true)
     expect(document.getElementsByClassName('border selected').length).toBe(1)
   })
