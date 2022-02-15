@@ -120,4 +120,11 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
     expect(isPrevented).toBeTruthy()
   })
+
+  test('debe tener los estilos normales el input del Todo tiene el foco', () => {
+    renderComponent(defaultItem())
+    expect(
+      document.getElementsByClassName('focus:border focus:border-[#999]').length
+    ).toBe(1)
+  })
 })
