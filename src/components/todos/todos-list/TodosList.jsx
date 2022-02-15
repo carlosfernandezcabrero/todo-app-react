@@ -3,7 +3,6 @@ import { context as todosFilterContext } from 'contexts/todos-filter/todosFilter
 import { context as todosContext } from 'contexts/todos/todos'
 import { useContext } from 'react'
 import TodoItem from '../todo-item/TodoItem'
-import './TodosList.css'
 
 export const TodosList = () => {
   const { state } = useContext(todosContext)
