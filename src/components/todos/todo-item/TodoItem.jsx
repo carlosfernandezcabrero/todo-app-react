@@ -23,7 +23,9 @@ const TodoItem = ({ id, value, isCompleted }) => {
   }, [])
 
   const className = `text-[24px] text-left flex-1 font-thin px-4 py-3 outline-none ${
-    isCompleted ? 'text-[#d9d9d9] line-through' : 'text-[#4d4d4d]'
+    isCompleted
+      ? 'text-[#d9d9d9] line-through focus:text-[#4d4d4d] focus:no-underline'
+      : 'text-[#4d4d4d]'
   }`
 
   const handleDelete = (id) => dispatch({ type: 'delete', payload: id })
