@@ -87,7 +87,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     expect(isDone).toBeFalsy()
   })
 
-  test('el input debe obtener el foco cuando se hace click dos veces', () => {
+  test.concurrent('el input debe obtener el foco cuando se hace click dos veces', () => {
     renderComponent(defaultItem())
 
     const inputElement = document.getElementById(id)
@@ -99,7 +99,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     expect(isDone).toBeTruthy()
   })
 
-  test('debe poner el cursor al final cuando se hace dos clic en el input', () => {
+  test.concurrent('debe poner el cursor al final cuando se hace dos clic en el input', () => {
     renderComponent(defaultItem())
 
     const inputElement = document.getElementById(id)
