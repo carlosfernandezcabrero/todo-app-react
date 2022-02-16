@@ -10,23 +10,35 @@ const TodoItem = ({ id, value, isCompleted }) => {
   const [inputValue, setInputValue] = useState(value)
 
   useEffect(() => {
-    const inputElement = window.document.getElementById(id)
+    const inputElement = window.document.getElementById(`${id}-input`)
+    const textElement = window.document.getElementById(`${id}-text`)
+    const deleteButton = window.document.getElementById(`${id}-delete-button`)
 
-    inputElement.onmousedown = (evt) => {
-      if (window.document.activeElement.id !== id) evt.preventDefault()
+    window.document.onmouseup = (evt) => {
+      // si el input no tiene el foco se debe evitar el comportamiento por defecto
+      if (window.document.activeElement.id !== `${id}-input`) {
+        evt.preventDefault()
+
+        inputElement.style.display = 'none'
+        textElement.style.display = 'initial'
+        deleteButton.style.display = 'initial'
+      }
     }
 
-    inputElement.ondblclick = () => {
+    textElement.ondblclick = () => {
+      inputElement.style.display = 'initial'
+
       inputElement.focus()
       inputElement.selectionStart = 1000
+
+      textElement.style.display = 'none'
+      deleteButton.style.display = 'none'
     }
   }, [])
 
-  const className = `text-[24px] text-left flex-1 font-thin px-4 py-3 outline-none ${
-    isCompleted
-      ? 'text-[#d9d9d9] line-through focus:text-[#4d4d4d] focus:no-underline'
-      : 'text-[#4d4d4d]'
-  }`
+  const completeTodoStyles = isCompleted
+    ? 'text-[#d9d9d9] line-through focus:text-[#4d4d4d] focus:no-underline'
+    : 'text-[#4d4d4d]'
 
   const handleDelete = (id) => dispatch({ type: 'delete', payload: id })
 
@@ -47,19 +59,26 @@ const TodoItem = ({ id, value, isCompleted }) => {
 
       <input
         type="text"
-        className={`${className} editing focus:border focus:border-[#999]`}
+        className="text-[24px] text-left flex-1 font-thin py-3 outline-none focus:border focus:border-[#999] hidden px-4"
         value={inputValue}
         onChange={({ target }) => setInputValue(target.value)}
-        id={id}
+        id={`${id}-input`}
       ></input>
 
+      <p
+        id={`${id}-text`}
+        className={`text-[24px] text-left flex-1 font-thin py-3 ${completeTodoStyles} px-4`}
+      >
+        {inputValue}
+      </p>
+
       <button
-        id="delete-button"
+        id={`${id}-delete-button`}
         type="button"
         role="button"
         aria-label="delete"
         onClick={() => handleDelete(id)}
-        className="todo__close invisible w-6 mr-3"
+        className="invisible w-6 mr-3"
       >
         <CloseIcon />
       </button>

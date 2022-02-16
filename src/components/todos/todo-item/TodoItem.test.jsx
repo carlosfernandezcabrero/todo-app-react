@@ -75,36 +75,47 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     })
   })
 
-  test('no se debe lanzar ninguna acción cuando se hace un click sobre el input', () => {
+  test('no se debe lanzar ninguna acción cuando se hace un click sobre el texto', () => {
     renderComponent(defaultItem())
 
-    const inputElement = document.getElementById(id)
+    const inputElement = document.getElementById(`${id}-input`)
+    const textElement = document.getElementById(`${id}-text`)
+    const deleteButton = window.document.getElementById(`${id}-delete-button`)
     inputElement.focus = vi.fn()
 
-    const isDone = fireEvent.mouseDown(inputElement)
+    const isDone = fireEvent.mouseUp(textElement)
 
     expect(inputElement.focus).not.toBeCalled()
     expect(isDone).toBeFalsy()
+    expect(deleteButton.style.display).toBe('initial')
+    expect(textElement.style.display).toBe('initial')
+    expect(inputElement.style.display).toBe('none')
   })
 
   test.concurrent('el input debe obtener el foco cuando se hace click dos veces', () => {
     renderComponent(defaultItem())
 
-    const inputElement = document.getElementById(id)
+    const inputElement = document.getElementById(`${id}-input`)
+    const textElement = document.getElementById(`${id}-text`)
+    const deleteButton = window.document.getElementById(`${id}-delete-button`)
     inputElement.focus = vi.fn()
 
-    const isDone = fireEvent.dblClick(inputElement)
+    const isDone = fireEvent.dblClick(textElement)
 
     expect(inputElement.focus).toHaveBeenCalledTimes(1)
     expect(isDone).toBeTruthy()
+    expect(textElement.style.display).toBe('none')
+    expect(deleteButton.style.display).toBe('none')
+    expect(inputElement.style.display).toBe('initial')
   })
 
-  test.concurrent('debe poner el cursor al final cuando se hace dos clic en el input', () => {
+  test.concurrent('debe poner el cursor al final cuando se hace dos clic en el texto', () => {
     renderComponent(defaultItem())
 
-    const inputElement = document.getElementById(id)
+    const inputElement = document.getElementById(`${id}-input`)
+    const textElement = document.getElementById(`${id}-text`)
 
-    const isDone = fireEvent.dblClick(inputElement)
+    const isDone = fireEvent.dblClick(textElement)
 
     expect(isDone).toBeTruthy()
     expect(inputElement.selectionStart).toBe(inputValue.length)
@@ -113,12 +124,12 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
   test('no debe llamar a preventDefault cuando el input ya tiene el foco', () => {
     renderComponent(defaultItem())
 
-    const inputElement = document.getElementById(id)
+    const inputElement = document.getElementById(`${id}-input`)
     inputElement.focus()
 
-    const isPrevented = fireEvent.mouseDown(inputElement)
+    const isDone = fireEvent.click(inputElement)
 
-    expect(isPrevented).toBeTruthy()
+    expect(isDone).toBeTruthy()
   })
 
   test('debe tener los estilos normales el input del Todo tiene el foco', () => {
