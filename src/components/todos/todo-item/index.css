@@ -3,5 +3,5 @@
 }
 
 .todo:hover :not(.editing:focus-visible) + .todo__close {
-  display: initial;
+  visibility: visible;
 }

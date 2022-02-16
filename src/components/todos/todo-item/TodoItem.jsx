@@ -34,7 +34,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
     dispatch({ type: 'toggleComplete', payload: id })
 
   return (
-    <li className="todo pl-3 flex items-center justify-between gap-6 font-thin">
+    <li className="todo pl-3 flex items-center justify-between sm:gap-2 font-thin">
       <button
         type="button"
         role="checkbox"
@@ -59,7 +59,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
         role="button"
         aria-label="delete"
         onClick={() => handleDelete(id)}
-        className="todo__close hidden w-6 mr-3"
+        className="todo__close invisible w-6 mr-3"
       >
         <CloseIcon />
       </button>
