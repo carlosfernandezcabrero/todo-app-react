@@ -10,20 +10,22 @@ const TodoItem = ({ id, value, isCompleted }) => {
   const [inputValue, setInputValue] = useState(value)
 
   useEffect(() => {
-    const inputElement = window.document.getElementById(`${id}-input`)
-    const textElement = window.document.getElementById(`${id}-text`)
-    const deleteButton = window.document.getElementById(`${id}-delete-button`)
+    const { document } = globalThis
 
-    window.document.onmouseup = (evt) => {
-      // si el input no tiene el foco se debe evitar el comportamiento por defecto
-      if (window.document.activeElement.id !== `${id}-input`) {
-        evt.preventDefault()
+    const inputElement = document.getElementById(`${id}-input`)
+    const textElement = document.getElementById(`${id}-text`)
+    const deleteButton = document.getElementById(`${id}-delete-button`)
 
+    document.onclick = () => {
+      // si el input no tiene el foco se oculta el input
+      if (document.activeElement.id !== `${id}-input`) {
         inputElement.style.display = 'none'
         textElement.style.display = 'initial'
         deleteButton.style.display = 'initial'
       }
     }
+
+    textElement.onclick = (evt) => evt.preventDefault()
 
     textElement.ondblclick = () => {
       inputElement.style.display = 'initial'

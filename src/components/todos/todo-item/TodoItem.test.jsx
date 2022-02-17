@@ -1,5 +1,6 @@
 import { randText } from '@ngneat/falso'
 import { cleanup, fireEvent, render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { nanoid } from 'nanoid'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import TodoItem from './TodoItem'
@@ -20,7 +21,13 @@ vi.mock('react', async () => {
   }
 })
 
-const renderComponent = (item) => render(<TodoItem {...item} />)
+const renderComponent = (item) =>
+  render(
+    <>
+      <button type='button' role='button'>pulsar</button>
+      <TodoItem {...item} />
+    </>
+  )
 
 const defaultItem = (completed = false) => ({
   isCompleted: completed,
@@ -83,7 +90,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const deleteButton = window.document.getElementById(`${id}-delete-button`)
     inputElement.focus = vi.fn()
 
-    const isDone = fireEvent.mouseUp(textElement)
+    const isDone = fireEvent.click(textElement)
 
     expect(inputElement.focus).not.toBeCalled()
     expect(isDone).toBeFalsy()
@@ -107,6 +114,27 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     expect(textElement.style.display).toBe('none')
     expect(deleteButton.style.display).toBe('none')
     expect(inputElement.style.display).toBe('initial')
+  })
+
+  test('debe reemplazarse el input por el párrafo cuando se pulsa fuera del input', async () => {
+    const component = renderComponent(defaultItem())
+    const { document } = globalThis
+
+    const textElement = document.getElementById(`${id}-text`)
+    const deleteButton = document.getElementById(`${id}-delete-button`)
+    const inputElement = document.getElementById(`${id}-input`)
+
+    userEvent.dblClick(textElement)
+
+    expect(textElement.style.display).toBe('none')
+    expect(deleteButton.style.display).toBe('none')
+    expect(inputElement.style.display).toBe('initial')
+
+    userEvent.click(component.getByText('pulsar'))
+
+    expect(textElement.style.display).toBe('initial')
+    expect(deleteButton.style.display).toBe('initial')
+    expect(inputElement.style.display).toBe('none')
   })
 
   test.concurrent('debe poner el cursor al final cuando se hace dos clic en el texto', () => {
