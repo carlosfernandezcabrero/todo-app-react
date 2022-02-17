@@ -1,4 +1,5 @@
-import { cleanup, fireEvent, render } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { TodosFooter } from './TodosFooter'
 
@@ -27,7 +28,7 @@ describe('Pruebas sobre el componente <TodosFooter/>', () => {
     const component = renderComponent()
     const button = component.getByLabelText('deleteCompleted')
 
-    fireEvent.click(button)
+    user.click(button)
 
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'deleteCompleted' })

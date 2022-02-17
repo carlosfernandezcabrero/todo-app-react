@@ -1,6 +1,6 @@
 import { randText } from '@ngneat/falso'
-import { cleanup, fireEvent, render } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { cleanup, createEvent, fireEvent, render } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { nanoid } from 'nanoid'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import TodoItem from './TodoItem'
@@ -60,7 +60,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const item = defaultItem(true)
     const component = renderComponent(item)
 
-    fireEvent.click(component.getByLabelText('complete'))
+    user.click(component.getByLabelText('complete'))
 
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({
@@ -73,7 +73,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const item = defaultItem(true)
     const component = renderComponent(item)
 
-    fireEvent.click(component.getByLabelText('delete'))
+    user.click(component.getByLabelText('delete'))
 
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({
@@ -90,10 +90,12 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const deleteButton = window.document.getElementById(`${id}-delete-button`)
     inputElement.focus = vi.fn()
 
-    const isDone = fireEvent.click(textElement)
+    const event = createEvent.click(textElement)
+    fireEvent(textElement, event)
 
+    expect(event.defaultPrevented).toBeTruthy()
     expect(inputElement.focus).not.toBeCalled()
-    expect(isDone).toBeFalsy()
+
     expect(deleteButton.style.display).toBe('initial')
     expect(textElement.style.display).toBe('initial')
     expect(inputElement.style.display).toBe('none')
@@ -107,10 +109,9 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const deleteButton = window.document.getElementById(`${id}-delete-button`)
     inputElement.focus = vi.fn()
 
-    const isDone = fireEvent.dblClick(textElement)
+    user.dblClick(textElement)
 
     expect(inputElement.focus).toHaveBeenCalledTimes(1)
-    expect(isDone).toBeTruthy()
     expect(textElement.style.display).toBe('none')
     expect(deleteButton.style.display).toBe('none')
     expect(inputElement.style.display).toBe('initial')
@@ -124,13 +125,13 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const deleteButton = document.getElementById(`${id}-delete-button`)
     const inputElement = document.getElementById(`${id}-input`)
 
-    userEvent.dblClick(textElement)
+    user.dblClick(textElement)
 
     expect(textElement.style.display).toBe('none')
     expect(deleteButton.style.display).toBe('none')
     expect(inputElement.style.display).toBe('initial')
 
-    userEvent.click(component.getByText('pulsar'))
+    user.click(component.getByText('pulsar'))
 
     expect(textElement.style.display).toBe('initial')
     expect(deleteButton.style.display).toBe('initial')
@@ -143,9 +144,8 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const inputElement = document.getElementById(`${id}-input`)
     const textElement = document.getElementById(`${id}-text`)
 
-    const isDone = fireEvent.dblClick(textElement)
+    user.dblClick(textElement)
 
-    expect(isDone).toBeTruthy()
     expect(inputElement.selectionStart).toBe(inputValue.length)
   })
 
@@ -155,9 +155,10 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     const inputElement = document.getElementById(`${id}-input`)
     inputElement.focus()
 
-    const isDone = fireEvent.click(inputElement)
+    const event = createEvent.click(inputElement)
+    fireEvent(inputElement, event)
 
-    expect(isDone).toBeTruthy()
+    expect(event.defaultPrevented).toBeFalsy()
   })
 
   test('debe tener los estilos normales el input del Todo tiene el foco', () => {

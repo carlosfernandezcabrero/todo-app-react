@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { useContext, useState } from 'react'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { AddTodo } from './AddTodo'
@@ -26,7 +27,7 @@ describe('Pruebas sobre el componente <AddTodo/>', () => {
     useState.mockReturnValue(['', mockSetTodo])
     const component = renderComponent([])
 
-    fireEvent.click(component.getByLabelText('selectAll'))
+    user.click(component.getByLabelText('selectAll'))
 
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({

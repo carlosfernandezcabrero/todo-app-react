@@ -1,4 +1,5 @@
-import { cleanup, fireEvent, render } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
+import user from '@testing-library/user-event'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { ButtonFilter } from './ButtonFilter'
 
@@ -31,7 +32,7 @@ describe('Pruebas sobre el componente <ButtonFilter/>', () => {
 
   test('debe cambiar el filtro de los todos cuando es pulsado el botón con el valor que se le pasa en la propiedad filterValue', () => {
     renderComponent(true)
-    fireEvent.click(document.getElementsByTagName('button')[0])
+    user.click(document.getElementsByTagName('button')[0])
     expect(mockSetTodosFilter).toHaveBeenCalledTimes(1)
     expect(mockSetTodosFilter).toHaveBeenCalledWith(true)
   })
