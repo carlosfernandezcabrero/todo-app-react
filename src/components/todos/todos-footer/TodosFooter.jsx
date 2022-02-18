@@ -1,14 +1,11 @@
 import { ButtonFilter } from 'components/button-filter/ButtonFilter'
-import { context as todosContext } from 'contexts/todos/todos'
-import { useContext } from 'react'
+import { useTodosContext } from 'hooks/useTodosContext'
 import './TodosFooter.css'
 
 export const TodosFooter = () => {
-  const { state, dispatch } = useContext(todosContext)
+  const { state, deleteCompletedTodos } = useTodosContext()
 
   const leftTodos = state.filter(todo => !todo.isCompleted)
-
-  const handleDeleteCompleted = () => dispatch({ type: 'deleteCompleted' })
 
   return (
     <div className="footer">
@@ -24,7 +21,7 @@ export const TodosFooter = () => {
         <div className="text-right">
           {state.length > leftTodos.length && (
             <button
-              onClick={handleDeleteCompleted}
+              onClick={() => deleteCompletedTodos()}
               className="font-thin"
               aria-label="deleteCompleted"
             >
