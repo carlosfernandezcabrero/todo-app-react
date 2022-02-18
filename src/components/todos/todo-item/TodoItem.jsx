@@ -3,7 +3,7 @@ import { CloseIcon } from 'components/icons/CloseIcon'
 import { context } from 'contexts/todos/todos'
 import propTypes from 'prop-types'
 import { useContext, useEffect, useState } from 'react'
-import './index.css'
+import styles from './index.module.css'
 
 const TodoItem = ({ id, value, isCompleted }) => {
   const { dispatch } = useContext(context)
@@ -48,7 +48,9 @@ const TodoItem = ({ id, value, isCompleted }) => {
     dispatch({ type: 'toggleComplete', payload: id })
 
   return (
-    <li className="todo pl-3 flex items-center justify-between sm:gap-2 font-thin">
+    <li
+      className={`${styles.todo} pl-3 flex items-center justify-between sm:gap-2 font-thin`}
+    >
       <button
         type="button"
         role="checkbox"
@@ -61,7 +63,8 @@ const TodoItem = ({ id, value, isCompleted }) => {
 
       <input
         type="text"
-        className="text-[24px] text-left flex-1 font-thin py-3 outline-none focus:border focus:border-[#999] hidden px-4"
+        className={`text-[24px] text-left flex-1 font-thin py-3 outline-none focus:border focus:border-[#999] ${
+        } px-4`}
         value={inputValue}
         onChange={({ target }) => setInputValue(target.value)}
         id={`${id}-input`}
@@ -80,7 +83,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
         role="button"
         aria-label="delete"
         onClick={() => handleDelete(id)}
-        className="invisible w-6 mr-3"
+          className={`${styles.deleteButton} invisible w-6 mr-3`}
       >
         <CloseIcon />
       </button>
