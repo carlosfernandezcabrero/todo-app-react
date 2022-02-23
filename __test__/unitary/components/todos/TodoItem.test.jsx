@@ -24,7 +24,7 @@ vi.mock('react', () => ({
 const id = nanoid()
 const value = randText()
 
-const setup = (isCompleted) =>
+const setup = (isCompleted = false) =>
   render(<TodoItem id={id} value={value} isCompleted={isCompleted} />)
 
 function setReturnValues (
@@ -51,7 +51,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
     setReturnValues(undefined, { toggleCompleteTodo: mockToggleCompleteTodo })
 
-    setup(false)
+    setup()
 
     userEvent.click(screen.getAllByRole('button')[0])
 
@@ -64,7 +64,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
     setReturnValues(undefined, { deleteTodo: mockDeleteTodo })
 
-    setup(false)
+    setup()
 
     userEvent.click(screen.getAllByRole('button')[1])
 
@@ -75,7 +75,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
   test('debe hacer se editable el input solo cuando se hace doble click sobre el', () => {
     setReturnValues()
 
-    setup(false)
+    setup()
 
     const input = document.getElementById(id)
     input.focus = vi.fn()
@@ -89,7 +89,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
   test('debe mover se el cursor al final del valor del input cuando se hace doble click sobre el', () => {
     setReturnValues({ state: value })
 
-    setup(false)
+    setup()
 
     const input = document.getElementById(id)
     input.focus = vi.fn()
@@ -102,7 +102,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
   test('debe perder el foco cuando se hace click en otro Todo', () => {
     setReturnValues()
 
-    setup(false)
+    setup()
 
     const input = document.getElementById(id)
     const idAux = nanoid()
@@ -126,7 +126,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
   test('no debe aparecer el check cuando no esta completado', () => {
     setReturnValues()
 
-    setup(false)
+    setup()
 
     expect(CheckIcon).toBeCalledTimes(0)
   })
@@ -142,7 +142,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
   test('debe no aparecer tachado el valor del Todo cuando no esta completado', () => {
     setReturnValues()
 
-    setup(false)
+    setup()
 
     expect(document.getElementById(id)).not.toHaveClass('line-through')
   })
