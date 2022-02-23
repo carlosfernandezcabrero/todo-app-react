@@ -20,10 +20,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      ...getAbsolutePaths()
+      ...getAbsolutePaths(),
+      styles: resolve(process.cwd(), 'styles')
     }
   },
   test: {
-    environment: 'jsdom'
+    environment: 'jsdom',
+    setupFiles: 'src/setupTests.js',
+    globals: true
   }
 })

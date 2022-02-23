@@ -1,9 +1,8 @@
-import { context as todosFilterContext } from 'contexts/todos-filter/todosFilter'
+import useTodosFilterContext from 'hooks/useTodosFilterContext'
 import propTypes from 'prop-types'
-import { useContext } from 'react'
 
 export const ButtonFilter = ({ name, filterValue }) => {
-  const { todosFilter, setTodosFilter } = useContext(todosFilterContext)
+  const { setTodosFilter, todosFilter } = useTodosFilterContext()
 
   const handleTodoFilter = () => setTodosFilter(filterValue)
 

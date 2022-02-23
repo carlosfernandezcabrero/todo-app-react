@@ -5,3 +5,7 @@
 .todo:hover .deleteButton {
   visibility: visible;
 }
+
+input:focus-visible + .deleteButton {
+  display: none;
+}

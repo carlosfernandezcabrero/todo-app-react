@@ -2,7 +2,7 @@ import { TodosContext } from 'contexts/todos/todos'
 import { nanoid } from 'nanoid'
 import { useContext } from 'react'
 
-export function useTodosContext () {
+export default function useTodosContext () {
   const { state, dispatch } = useContext(TodosContext)
 
   function addTodo (payload) {

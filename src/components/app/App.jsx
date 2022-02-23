@@ -1,7 +1,7 @@
-import { Footer } from 'components/app/footer'
 import { Todos } from 'components/todos'
 import { TodosProvider } from 'contexts/todos/todos'
-import './App.css'
+import 'styles/App.css'
+import { Footer } from './Footer'
 
 function App () {
   return (

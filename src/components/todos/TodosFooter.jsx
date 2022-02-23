@@ -1,6 +1,6 @@
-import { ButtonFilter } from 'components/button-filter/ButtonFilter'
-import { useTodosContext } from 'hooks/useTodosContext'
-import './TodosFooter.css'
+import { ButtonFilter } from 'components/ButtonFilter'
+import useTodosContext from 'hooks/useTodosContext'
+import 'styles/TodosFooter.css'
 
 export const TodosFooter = () => {
   const { state, deleteCompletedTodos } = useTodosContext()
@@ -23,7 +23,8 @@ export const TodosFooter = () => {
             <button
               onClick={() => deleteCompletedTodos()}
               className="font-thin"
-              aria-label="deleteCompleted"
+              role='button'
+              type='button'
             >
               Clear Completed
             </button>

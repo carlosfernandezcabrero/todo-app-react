@@ -1,15 +1,15 @@
 import propTypes from 'prop-types'
 import { createContext, useState } from 'react'
 
-export const context = createContext()
+export const TodosFilterContext = createContext()
 
 export const TodosFilterProvider = ({ children }) => {
   const [todosFilter, setTodosFilter] = useState(undefined)
 
   return (
-    <context.Provider value={{ todosFilter, setTodosFilter }}>
+    <TodosFilterContext.Provider value={{ todosFilter, setTodosFilter }}>
       {children}
-    </context.Provider>
+    </TodosFilterContext.Provider>
   )
 }
 
