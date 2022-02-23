@@ -36,6 +36,10 @@ const TodoItem = ({ id, value, isCompleted }) => {
     }
   }
 
+  function handleEnter (evt) {
+    if (evt.key === 'Enter') document.getElementById(id).blur()
+  }
+
   const completeTodoStyles = isCompleted
     ? 'text-[#d9d9d9] line-through focus:text-[#4d4d4d] focus:no-underline'
     : 'text-[#4d4d4d]'
@@ -64,6 +68,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
         onChange={({ target }) => setInputValue(target.value)}
         onMouseDown={(evt) => handleMouseDown(evt)}
         onMouseUp={(evt) => handleMouseUp(evt)}
+        onKeyPress={(evt) => handleEnter(evt)}
       />
 
       <button

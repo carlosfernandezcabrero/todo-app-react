@@ -146,4 +146,20 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
     expect(document.getElementById(id)).not.toHaveClass('line-through')
   })
+
+  test('debe hacer blur cuando el input tiene el foco y se presiona el enter', () => {
+    setReturnValues()
+    setup()
+
+    const input = document.getElementById(id)
+    input.blur = vi.fn()
+
+    fireEvent.keyPress(input, {
+      key: 'Enter',
+      code: 'Enter',
+      charCode: 13
+    })
+
+    expect(input.blur).toBeCalledTimes(1)
+  })
 })
