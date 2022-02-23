@@ -5,7 +5,7 @@ import { TodosFooter } from 'components/todos/TodosFooter'
 import useTodosContext from 'hooks/useTodosContext'
 import { vi } from 'vitest'
 
-vi.mock('components/button-filter/ButtonFilter', () => ({
+vi.mock('components/ButtonFilter', () => ({
   ButtonFilter: vi.fn(() => <></>)
 }))
 
