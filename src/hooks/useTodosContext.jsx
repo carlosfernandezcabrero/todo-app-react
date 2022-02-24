@@ -1,13 +1,22 @@
 import { TodosContext } from 'contexts/todos/todos'
 import { nanoid } from 'nanoid'
 import { useContext } from 'react'
+import { saveTodos } from 'services/todosService'
 
 export default function useTodosContext () {
   const { state, dispatch } = useContext(TodosContext)
 
   function addTodo (payload) {
     const newTodo = { isCompleted: false, value: payload, id: nanoid() }
-    dispatch([...state, newTodo])
+    const newState = [...state, newTodo]
+    saveTodos(newState)
+    dispatch(newState)
+  }
+
+  function modifyTodo (todo) {
+    const newState = state.map(t => todo.id === t.id ? { ...t, ...todo } : t)
+    saveTodos(newState)
+    dispatch(newState)
   }
 
   function deleteTodo (payload) {
@@ -38,6 +47,7 @@ export default function useTodosContext () {
 
   return {
     addTodo,
+    modifyTodo,
     deleteTodo,
     deleteCompletedTodos,
     toggleCompleteTodo,

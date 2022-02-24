@@ -6,7 +6,7 @@ import { useState } from 'react'
 import styles from 'styles/TodoItem.module.css'
 
 const TodoItem = ({ id, value, isCompleted }) => {
-  const { toggleCompleteTodo, deleteTodo } = useTodosContext()
+  const { toggleCompleteTodo, deleteTodo, modifyTodo } = useTodosContext()
   const [inputValue, setInputValue] = useState(value)
 
   function handleMouseDown (evt) {
@@ -19,6 +19,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
     // si el elemento activo es distinto al componente
     if (document.activeElement.id && id !== document.activeElement.id) {
       const doc = document.getElementById(document.activeElement.id)
+      modifyTodo({ id: doc.id, value: doc.value })
       doc.blur()
     }
 
@@ -37,7 +38,10 @@ const TodoItem = ({ id, value, isCompleted }) => {
   }
 
   function handleEnter (evt) {
-    if (evt.key === 'Enter') document.getElementById(id).blur()
+    if (evt.key === 'Enter') {
+      modifyTodo({ id, value: inputValue })
+      document.getElementById(id).blur()
+    }
   }
 
   const completeTodoStyles = isCompleted

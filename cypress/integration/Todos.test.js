@@ -22,6 +22,17 @@ describe('Pruebas sobre los Todos', () => {
       .last()
       .children('input')
       .should('have.value', values[1])
+
+    cy.visit('/')
+    cy.get('@todoItems').should('have.length', 2)
+    cy.get('@todoItems')
+      .first()
+      .children('input')
+      .should('have.value', values[0])
+    cy.get('@todoItems')
+      .last()
+      .children('input')
+      .should('have.value', values[1])
   })
 
   it('puede borrar un Todo', () => {
@@ -143,9 +154,16 @@ describe('Pruebas sobre los Todos', () => {
 
     const todo2fv = randText()
     cy.get('@todoItems').last().children('input').dblclick()
-    cy.get('@todoItems').last().children('input').clear().type(todo2fv)
+    cy.get('@todoItems')
+      .last()
+      .children('input')
+      .clear()
+      .type(`${todo2fv}{enter}`)
 
-    cy.get('@todoItems').first().children('input').click()
+    cy.get('@todoItems').first().children('input').should('have.value', todo1fv)
+    cy.get('@todoItems').last().children('input').should('have.value', todo2fv)
+
+    cy.visit('/')
 
     cy.get('@todoItems').first().children('input').should('have.value', todo1fv)
     cy.get('@todoItems').last().children('input').should('have.value', todo2fv)
