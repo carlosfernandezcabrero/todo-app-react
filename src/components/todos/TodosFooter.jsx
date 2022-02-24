@@ -9,7 +9,7 @@ export const TodosFooter = () => {
 
   return (
     <div className="footer">
-      <div className="grid grid-cols-3 py-3 px-5 font-thin text-[14px] text-[#777] bg-[#fff]">
+      <div className="grid grid-cols-3 py-3 px-5 text-[14px] text-[#777] bg-[#fff] font-light">
         <div className="text-left">
           <p>{leftTodos.length} items left</p>
         </div>
@@ -22,7 +22,7 @@ export const TodosFooter = () => {
           {state.length > leftTodos.length && (
             <button
               onClick={() => deleteCompletedTodos()}
-              className="font-thin"
+              className="font-light"
               role='button'
               type='button'
             >

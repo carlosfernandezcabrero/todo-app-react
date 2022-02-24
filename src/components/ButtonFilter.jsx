@@ -9,7 +9,7 @@ export const ButtonFilter = ({ name, filterValue }) => {
   return (
     <button
       type="button"
-      className={`font-thin px-2 ${
+      className={`px-2 font-light ${
         todosFilter === filterValue && 'border selected'
       }`}
       onClick={handleTodoFilter}

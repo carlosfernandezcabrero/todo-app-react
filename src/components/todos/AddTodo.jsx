@@ -35,7 +35,7 @@ export const AddTodo = () => {
       </button>
       <input
         type="text"
-        className="flex-1 todos-add__input text-[24px] placeholder:italic font-thin placeholder:text-[#e6e6e6] outline-none w-full placeholder:text-center sm:placeholder:text-left"
+        className="flex-1 todos-add__input text-[24px] font-light placeholder:italic placeholder:text-[#e6e6e6] outline-none w-full placeholder:text-center sm:placeholder:text-left"
         placeholder="What needs to be done?"
         onKeyPress={handleAddTodo}
         onChange={({ target }) => setTodo(target.value)}

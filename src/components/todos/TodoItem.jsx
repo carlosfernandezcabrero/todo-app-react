@@ -26,7 +26,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
   return (
     <li
       data-testid="todo-item"
-      className={`${styles.todo} pl-3 flex items-center justify-between gap-2 font-thin`}
+      className={`${styles.todo} pl-3 flex items-center justify-between gap-2`}
     >
       <button
         type="button"
@@ -43,7 +43,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
         <input
           type="text"
           id={id}
-          className="text-[24px] text-left flex-1 font-thin py-3 outline-none px-3 w-full focus:border focus:border-[#999]"
+          className="text-[24px] text-left flex-1 py-3 outline-none px-3 w-full focus:border focus:border-[#999] font-light"
           value={inputValue}
           onChange={({ target }) => setInputValue(target.value)}
           onKeyPress={(evt) => handleEnter(evt)}
@@ -54,7 +54,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
 
       {!isEditing && (
         <label
-          className={`text-[24px] text-left flex-1 font-thin py-3 outline-none px-3 ${completeTodoStyles} w-full`}
+          className={`text-[24px] text-left flex-1 py-3 outline-none px-3 ${completeTodoStyles} w-full`}
           onDoubleClick={() => setIsEditing(true)}
         >
           {value}
