@@ -2,6 +2,7 @@ import { randText } from '@ngneat/falso'
 import useTodosContext from 'hooks/useTodosContext'
 import { nanoid } from 'nanoid'
 import { useContext } from 'react'
+import { saveTodos } from 'services/todosService'
 import { vi } from 'vitest'
 
 const mockDispatch = vi.fn()
@@ -15,6 +16,10 @@ vi.mock('react', async () => {
   }
 })
 
+vi.mock('services/todosService', () => ({
+  saveTodos: vi.fn()
+}))
+
 describe('Pruebas sobre el hook useTodosContext', () => {
   beforeEach(() => {
     mockDispatch.mockClear()
@@ -26,13 +31,22 @@ describe('Pruebas sobre el hook useTodosContext', () => {
     useContext.mockReturnValue({ state: [], dispatch: mockDispatch })
 
     const value = randText()
+    const expected = [
+      {
+        isCompleted: false,
+        value,
+        id: expect.any(String)
+      }
+    ]
     const { addTodo } = useTodosContext()
 
     addTodo(value)
 
     expect(mockDispatch).toBeCalledTimes(1)
-    expect(mockDispatch.mock.calls[0][0][0].value).toBe(value)
-    expect(mockDispatch.mock.calls[0][0][0].isCompleted).toBeFalsy()
+    expect(mockDispatch).toBeCalledWith(expected)
+
+    expect(saveTodos).toBeCalledTimes(1)
+    expect(saveTodos).toBeCalledWith(expected)
   })
 
   test('debe eliminar un Todo', () => {
