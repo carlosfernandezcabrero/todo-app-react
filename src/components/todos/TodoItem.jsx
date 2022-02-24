@@ -67,7 +67,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
       <input
         type="text"
         id={id}
-        className={`text-[24px] text-left flex-1 font-thin py-3 outline-none focus:border focus:border-[#999] px-4 ${completeTodoStyles}`}
+        className={`text-[24px] text-left flex-1 font-thin py-3 outline-none focus:border focus:border-[#999] px-4 ${completeTodoStyles} w-full`}
         value={inputValue}
         onChange={({ target }) => setInputValue(target.value)}
         onMouseDown={(evt) => handleMouseDown(evt)}
