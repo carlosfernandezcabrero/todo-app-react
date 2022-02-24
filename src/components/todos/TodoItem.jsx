@@ -58,7 +58,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
         role="button"
         className={`border ${
           isCompleted ? 'border-[#77bfaf]' : 'border-[#ededed]'
-        } rounded-full flex items-center justify-center w-8 h-8`}
+        } rounded-full flex items-center justify-center w-8 h-8 min-w-[32px] min-h-[26px]`}
         onClick={() => toggleCompleteTodo(id)}
       >
         {isCompleted && <CheckIcon />}

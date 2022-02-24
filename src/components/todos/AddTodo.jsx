@@ -23,7 +23,7 @@ export const AddTodo = () => {
   }
 
   return (
-    <div className="todos-add text-2xl text-left py-4 px-3 bg-[#fff] flex items-center justify-center sm:flex-row flex-col-reverse gap-6 flex-wrap">
+    <div className="todos-add text-2xl text-left py-4 px-3 bg-[#fff] flex items-center justify-center sm:flex-row flex-col-reverse sm:gap-6 flex-wrap">
       <button
         role="button"
         type="button"
