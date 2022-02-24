@@ -4,7 +4,15 @@ import { createContext, useState } from 'react'
 export const TodosContext = createContext()
 
 export const TodosProvider = ({ children }) => {
-  const [state, dispatch] = useState([])
+  const initialState = (() => {
+    const localSt = localStorage.getItem('todos')
+
+    if (localSt) return JSON.parse(localSt)
+
+    return []
+  })()
+
+  const [state, dispatch] = useState(initialState)
 
   return (
     <TodosContext.Provider value={{ state, dispatch }}>
