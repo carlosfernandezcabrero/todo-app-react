@@ -33,9 +33,12 @@ function setReturnValues (
     toggleCompleteTodo = vi.fn(),
     deleteTodo = vi.fn(),
     modifyTodo = vi.fn()
-  } = {}
+  } = {},
+  { isEditing = false, setIsEditing = vi.fn() } = {}
 ) {
-  useState.mockReturnValue([state, dispatch])
+  useState
+    .mockReturnValueOnce([state, dispatch])
+    .mockReturnValueOnce([isEditing, setIsEditing])
   useTodosContext.mockReturnValue({
     toggleCompleteTodo,
     deleteTodo,
@@ -77,66 +80,42 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     expect(mockDeleteTodo).toBeCalledWith(id)
   })
 
-  test('debe hacer se editable el input solo cuando se hace doble click sobre el', () => {
-    setReturnValues()
+  test('debe hacer se editable el input cuando se hace doble click sobre el', () => {
+    const mockSetIsEditing = vi.fn()
+
+    setReturnValues(
+      undefined,
+      undefined,
+      { isEditing: false, setIsEditing: mockSetIsEditing }
+    )
 
     setup()
 
-    const input = document.getElementById(id)
-    input.focus = vi.fn()
+    fireEvent.doubleClick(screen.getByText(value))
 
-    fireEvent.mouseUp(input, { detail: 1 })
-    fireEvent.mouseUp(input, { detail: 2 })
-
-    expect(input.focus).toHaveBeenCalledTimes(1)
+    expect(mockSetIsEditing).toHaveBeenCalledTimes(1)
+    expect(mockSetIsEditing).toHaveBeenCalledWith(true)
   })
 
-  test('debe mover se el cursor al final del valor del input cuando se hace doble click sobre el', () => {
-    setReturnValues({ state: value })
-
-    setup()
-
-    const input = document.getElementById(id)
-    input.focus = vi.fn()
-
-    fireEvent.mouseUp(input, { detail: 2 })
-
-    expect(input.selectionStart).toBe(value.length)
-  })
-
-  test('debe perder el foco cuando se hace click en otro Todo', () => {
-    setReturnValues()
-
-    setup()
-
-    const input = document.getElementById(id)
-    const idAux = nanoid()
-    document.activeElement.id = idAux
-    const inputAux = document.getElementById(idAux)
-    inputAux.blur = vi.fn()
-
-    fireEvent.mouseDown(input)
-
-    expect(inputAux.blur).toBeCalledTimes(1)
-  })
-
-  test('debe modificar el Todo cuando se hace click en otro Todo', () => {
+  test('debe modificar el Todo cuando se hace blur', () => {
     const mockModifyTodo = vi.fn()
+    const mockSetIsEditing = vi.fn()
 
-    setReturnValues(undefined, { modifyTodo: mockModifyTodo })
+    setReturnValues(
+      undefined,
+      { modifyTodo: mockModifyTodo },
+      { isEditing: true, setIsEditing: mockSetIsEditing }
+    )
     setup()
 
     const input = document.getElementById(id)
-    const idAux = nanoid()
-    const valueAux = randText()
-
-    document.activeElement.id = idAux
-    document.activeElement.value = valueAux
-
-    fireEvent.mouseDown(input)
+    input.blur()
 
     expect(mockModifyTodo).toBeCalledTimes(1)
-    expect(mockModifyTodo).toBeCalledWith({ id: idAux, value: valueAux })
+    expect(mockModifyTodo).toBeCalledWith({ id, value })
+
+    expect(mockSetIsEditing).toHaveBeenCalledTimes(1)
+    expect(mockSetIsEditing).toHaveBeenCalledWith(false)
   })
 
   test('debe aparecer el check si esta completado', () => {
@@ -160,7 +139,7 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
     setup(true)
 
-    expect(document.getElementById(id)).toHaveClass('line-through')
+    expect(screen.getByText(value)).toHaveClass('line-through')
   })
 
   test('debe no aparecer tachado el valor del Todo cuando no esta completado', () => {
@@ -168,29 +147,18 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
     setup()
 
-    expect(document.getElementById(id)).not.toHaveClass('line-through')
-  })
-
-  test('debe hacer blur cuando el input tiene el foco y se presiona el enter', () => {
-    setReturnValues()
-    setup()
-
-    const input = document.getElementById(id)
-    input.blur = vi.fn()
-
-    fireEvent.keyPress(input, {
-      key: 'Enter',
-      code: 'Enter',
-      charCode: 13
-    })
-
-    expect(input.blur).toBeCalledTimes(1)
+    expect(screen.getByText(value)).not.toHaveClass('line-through')
   })
 
   test('debe modificar el Todo cuando se presiona el enter', () => {
     const mockModifyTodo = vi.fn()
+    const mockSetIsEditing = vi.fn()
 
-    setReturnValues(undefined, { modifyTodo: mockModifyTodo })
+    setReturnValues(
+      undefined,
+      { modifyTodo: mockModifyTodo },
+      { isEditing: true, setIsEditing: mockSetIsEditing }
+    )
     setup()
 
     const input = document.getElementById(id)
@@ -203,5 +171,8 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
 
     expect(mockModifyTodo).toBeCalledTimes(1)
     expect(mockModifyTodo).toBeCalledWith({ id, value })
+
+    expect(mockSetIsEditing).toBeCalledTimes(1)
+    expect(mockSetIsEditing).toBeCalledWith(false)
   })
 })

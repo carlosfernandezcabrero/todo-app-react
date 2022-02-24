@@ -16,23 +16,23 @@ describe('Pruebas sobre los Todos', () => {
     cy.get('@todoItems').should('have.length', 2)
     cy.get('@todoItems')
       .first()
-      .children('input')
-      .should('have.value', values[0])
+      .children('label')
+      .should('have.text', values[0])
     cy.get('@todoItems')
       .last()
-      .children('input')
-      .should('have.value', values[1])
+      .children('label')
+      .should('have.text', values[1])
 
     cy.visit('/')
     cy.get('@todoItems').should('have.length', 2)
     cy.get('@todoItems')
       .first()
-      .children('input')
-      .should('have.value', values[0])
+      .children('label')
+      .should('have.text', values[0])
     cy.get('@todoItems')
       .last()
-      .children('input')
-      .should('have.value', values[1])
+      .children('label')
+      .should('have.text', values[1])
   })
 
   it('puede borrar un Todo', () => {
@@ -63,16 +63,16 @@ describe('Pruebas sobre los Todos', () => {
 
     cy.contains('Active').click()
     cy.get('@todoItems').should('have.length', 1)
-    cy.get('@todoItems').first().children('input').should('have.value', todo2)
+    cy.get('@todoItems').first().children('label').should('have.text', todo2)
 
     cy.contains('Completed').click()
     cy.get('@todoItems').should('have.length', 1)
-    cy.get('@todoItems').first().children('input').should('have.value', todo1)
+    cy.get('@todoItems').first().children('label').should('have.text', todo1)
 
     cy.contains('All').click()
     cy.get('@todoItems').should('have.length', 2)
-    cy.get('@todoItems').first().children('input').should('have.value', todo1)
-    cy.get('@todoItems').last().children('input').should('have.value', todo2)
+    cy.get('@todoItems').first().children('label').should('have.text', todo1)
+    cy.get('@todoItems').last().children('label').should('have.text', todo2)
   })
 
   it('puede completar y descompletar los Todos', () => {
@@ -110,8 +110,8 @@ describe('Pruebas sobre los Todos', () => {
     cy.get('@todoItems').should('have.length', 1)
     cy.get('@todoItems')
       .first()
-      .children('input')
-      .should('have.value', todoNotCompletedValue)
+      .children('label')
+      .should('have.text', todoNotCompletedValue)
   })
 
   it('puede seleccionar y remover la selección de los Todos', () => {
@@ -122,21 +122,21 @@ describe('Pruebas sobre los Todos', () => {
 
     cy.get('@todoItems').first().children('button').first().click()
 
-    cy.get('li[data-testid="todo-item"] input.line-through').should(
+    cy.get('li[data-testid="todo-item"] label.line-through').should(
       'have.length',
       1
     )
 
     cy.get('.todos-add > button').click()
 
-    cy.get('li[data-testid="todo-item"] input.line-through').should(
+    cy.get('li[data-testid="todo-item"] label.line-through').should(
       'have.length',
       2
     )
 
     cy.get('.todos-add > button').click()
 
-    cy.get('li[data-testid="todo-item"] input.line-through').should(
+    cy.get('li[data-testid="todo-item"] label.line-through').should(
       'have.length',
       0
     )
@@ -149,23 +149,23 @@ describe('Pruebas sobre los Todos', () => {
     cy.get('li[data-testid="todo-item"]').as('todoItems')
 
     const todo1fv = randText()
-    cy.get('@todoItems').first().children('input').dblclick()
+    cy.get('@todoItems').first().children('label').dblclick()
     cy.get('@todoItems').first().children('input').clear().type(todo1fv)
 
     const todo2fv = randText()
-    cy.get('@todoItems').last().children('input').dblclick()
+    cy.get('@todoItems').last().children('label').dblclick()
     cy.get('@todoItems')
       .last()
       .children('input')
       .clear()
       .type(`${todo2fv}{enter}`)
 
-    cy.get('@todoItems').first().children('input').should('have.value', todo1fv)
-    cy.get('@todoItems').last().children('input').should('have.value', todo2fv)
+    cy.get('@todoItems').first().children('label').should('have.text', todo1fv)
+    cy.get('@todoItems').last().children('label').should('have.text', todo2fv)
 
     cy.visit('/')
 
-    cy.get('@todoItems').first().children('input').should('have.value', todo1fv)
-    cy.get('@todoItems').last().children('input').should('have.value', todo2fv)
+    cy.get('@todoItems').first().children('label').should('have.text', todo1fv)
+    cy.get('@todoItems').last().children('label').should('have.text', todo2fv)
   })
 })

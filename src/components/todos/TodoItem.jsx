@@ -8,40 +8,15 @@ import styles from 'styles/TodoItem.module.css'
 const TodoItem = ({ id, value, isCompleted }) => {
   const { toggleCompleteTodo, deleteTodo, modifyTodo } = useTodosContext()
   const [inputValue, setInputValue] = useState(value)
+  const [isEditing, setIsEditing] = useState(false)
 
-  function handleMouseDown (evt) {
-    // si no es un doble click y
-    // el input no tiene el foco
-    if (evt.detail !== 2 && document.activeElement.id !== id) {
-      evt.preventDefault()
-    }
-
-    // si el elemento activo es distinto al componente
-    if (document.activeElement.id && id !== document.activeElement.id) {
-      const doc = document.getElementById(document.activeElement.id)
-      modifyTodo({ id: doc.id, value: doc.value })
-      doc.blur()
-    }
-
-    // si se ha pulsado dos veces
-    if (evt.detail === 2) evt.preventDefault()
-  }
-
-  function handleMouseUp (evt) {
-    // si se ha dado click dos veces
-    if (evt.detail === 2) {
-      const doc = document.getElementById(id)
-
-      doc.focus()
-      doc.selectionStart = 1_000
-    }
+  function handleExitOfInput () {
+    modifyTodo({ id, value: inputValue })
+    setIsEditing(false)
   }
 
   function handleEnter (evt) {
-    if (evt.key === 'Enter') {
-      modifyTodo({ id, value: inputValue })
-      document.getElementById(id).blur()
-    }
+    if (evt.key === 'Enter') handleExitOfInput()
   }
 
   const completeTodoStyles = isCompleted
@@ -51,7 +26,7 @@ const TodoItem = ({ id, value, isCompleted }) => {
   return (
     <li
       data-testid="todo-item"
-      className={`${styles.todo} pl-3 flex items-center justify-between sm:gap-2 font-thin`}
+      className={`${styles.todo} pl-3 flex items-center justify-between gap-2 font-thin`}
     >
       <button
         type="button"
@@ -64,16 +39,27 @@ const TodoItem = ({ id, value, isCompleted }) => {
         {isCompleted && <CheckIcon />}
       </button>
 
-      <input
-        type="text"
-        id={id}
-        className={`text-[24px] text-left flex-1 font-thin py-3 outline-none focus:border focus:border-[#999] px-4 ${completeTodoStyles} w-full`}
-        value={inputValue}
-        onChange={({ target }) => setInputValue(target.value)}
-        onMouseDown={(evt) => handleMouseDown(evt)}
-        onMouseUp={(evt) => handleMouseUp(evt)}
-        onKeyPress={(evt) => handleEnter(evt)}
-      />
+      {isEditing && (
+        <input
+          type="text"
+          id={id}
+          className="text-[24px] text-left flex-1 font-thin py-3 outline-none px-3 w-full focus:border focus:border-[#999]"
+          value={inputValue}
+          onChange={({ target }) => setInputValue(target.value)}
+          onKeyPress={(evt) => handleEnter(evt)}
+          onBlur={() => handleExitOfInput()}
+          autoFocus
+        />
+      )}
+
+      {!isEditing && (
+        <label
+          className={`text-[24px] text-left flex-1 font-thin py-3 outline-none px-3 ${completeTodoStyles} w-full`}
+          onDoubleClick={() => setIsEditing(true)}
+        >
+          {value}
+        </label>
+      )}
 
       <button
         type="button"
