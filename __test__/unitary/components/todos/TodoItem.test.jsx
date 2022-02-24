@@ -28,13 +28,18 @@ const setup = (isCompleted) =>
   render(<TodoItem id={id} value={value} isCompleted={isCompleted} />)
 
 function setReturnValues (
-  { state = '', dispatch = vi.fn() } = {},
-  { toggleCompleteTodo = vi.fn(), deleteTodo = vi.fn() } = {}
+  { state = value, dispatch = vi.fn() } = {},
+  {
+    toggleCompleteTodo = vi.fn(),
+    deleteTodo = vi.fn(),
+    modifyTodo = vi.fn()
+  } = {}
 ) {
   useState.mockReturnValue([state, dispatch])
   useTodosContext.mockReturnValue({
     toggleCompleteTodo,
-    deleteTodo
+    deleteTodo,
+    modifyTodo
   })
 }
 
@@ -115,6 +120,25 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     expect(inputAux.blur).toBeCalledTimes(1)
   })
 
+  test('debe modificar el Todo cuando se hace click en otro Todo', () => {
+    const mockModifyTodo = vi.fn()
+
+    setReturnValues(undefined, { modifyTodo: mockModifyTodo })
+    setup()
+
+    const input = document.getElementById(id)
+    const idAux = nanoid()
+    const valueAux = randText()
+
+    document.activeElement.id = idAux
+    document.activeElement.value = valueAux
+
+    fireEvent.mouseDown(input)
+
+    expect(mockModifyTodo).toBeCalledTimes(1)
+    expect(mockModifyTodo).toBeCalledWith({ id: idAux, value: valueAux })
+  })
+
   test('debe aparecer el check si esta completado', () => {
     setReturnValues()
 
@@ -161,5 +185,23 @@ describe('Pruebas sobre el componente <TodoItem/>', () => {
     })
 
     expect(input.blur).toBeCalledTimes(1)
+  })
+
+  test('debe modificar el Todo cuando se presiona el enter', () => {
+    const mockModifyTodo = vi.fn()
+
+    setReturnValues(undefined, { modifyTodo: mockModifyTodo })
+    setup()
+
+    const input = document.getElementById(id)
+
+    fireEvent.keyPress(input, {
+      key: 'Enter',
+      code: 'Enter',
+      charCode: 13
+    })
+
+    expect(mockModifyTodo).toBeCalledTimes(1)
+    expect(mockModifyTodo).toBeCalledWith({ id, value })
   })
 })

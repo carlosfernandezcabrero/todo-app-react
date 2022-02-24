@@ -23,6 +23,7 @@ vi.mock('services/todosService', () => ({
 describe('Pruebas sobre el hook useTodosContext', () => {
   beforeEach(() => {
     mockDispatch.mockClear()
+    saveTodos.mockClear()
 
     useContext.mockReset()
   })
@@ -75,7 +76,7 @@ describe('Pruebas sobre el hook useTodosContext', () => {
     expect(mockDispatch).toBeCalledWith([])
   })
 
-  test('debe cambiar el estado de completacion del Todo al valor Booleano contratio', () => {
+  test('debe cambiar el estado de completado del Todo al valor Booleano contrario', () => {
     const id = nanoid()
     useContext.mockReturnValue({
       state: [{ id, isCompleted: true }],
@@ -122,5 +123,26 @@ describe('Pruebas sobre el hook useTodosContext', () => {
       { isCompleted: false },
       { isCompleted: false }
     ])
+  })
+
+  test('debe editar el Todo', () => {
+    const id = nanoid()
+
+    useContext.mockReturnValue({
+      state: [{ id, isCompleted: false, value: randText() }],
+      dispatch: mockDispatch
+    })
+
+    const { modifyTodo } = useTodosContext()
+
+    const value = randText()
+    const expected = { id, isCompleted: true, value }
+    modifyTodo(expected)
+
+    expect(mockDispatch).toBeCalledTimes(1)
+    expect(mockDispatch).toBeCalledWith([expected])
+
+    expect(saveTodos).toBeCalledTimes(1)
+    expect(saveTodos).toBeCalledWith([expected])
   })
 })

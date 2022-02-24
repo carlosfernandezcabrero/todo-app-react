@@ -13,6 +13,12 @@ export default function useTodosContext () {
     dispatch(newState)
   }
 
+  function modifyTodo (todo) {
+    const newState = state.map(t => todo.id === t.id ? { ...t, ...todo } : t)
+    saveTodos(newState)
+    dispatch(newState)
+  }
+
   function deleteTodo (payload) {
     const newState = state.filter(({ id }) => id !== payload)
     dispatch(newState)
@@ -41,6 +47,7 @@ export default function useTodosContext () {
 
   return {
     addTodo,
+    modifyTodo,
     deleteTodo,
     deleteCompletedTodos,
     toggleCompleteTodo,
