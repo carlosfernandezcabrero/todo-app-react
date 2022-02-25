@@ -1,11 +1,15 @@
 import { ButtonFilter } from 'components/ButtonFilter'
 import useTodosContext from 'hooks/useTodosContext'
+import { useMemo } from 'react'
 import 'styles/TodosFooter.css'
 
 export const TodosFooter = () => {
   const { state, deleteCompletedTodos } = useTodosContext()
 
-  const leftTodos = state.filter(todo => !todo.isCompleted)
+  const leftTodos = useMemo(
+    () => state.filter((todo) => !todo.isCompleted),
+    [state]
+  )
 
   return (
     <div className="footer">

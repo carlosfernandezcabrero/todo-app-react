@@ -1,7 +1,7 @@
 import { randText } from '@ngneat/falso'
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { CheckIcon } from 'components/icons/CheckIcon'
+import CheckIcon from 'components/icons/CheckIcon'
 import TodoItem from 'components/todos/TodoItem'
 import useTodosContext from 'hooks/useTodosContext'
 import { nanoid } from 'nanoid'
@@ -13,13 +13,21 @@ vi.mock('hooks/useTodosContext', () => ({
   default: vi.fn()
 }))
 
-vi.mock('components/icons/CloseIcon', () => ({ CloseIcon: vi.fn(() => <></>) }))
-
-vi.mock('components/icons/CheckIcon', () => ({ CheckIcon: vi.fn(() => <></>) }))
-
-vi.mock('react', () => ({
-  useState: vi.fn()
+vi.mock('components/icons/CloseIcon', () => ({
+  __esModule: true,
+  default: vi.fn(() => <></>)
 }))
+
+vi.mock('components/icons/CheckIcon', () => ({
+  __esModule: true,
+  default: vi.fn(() => <></>)
+}))
+
+vi.mock('react', async () => {
+  const actual = await vi.importActual('react')
+
+  return { ...actual, useState: vi.fn() }
+})
 
 const id = nanoid()
 const value = randText()

@@ -1,4 +1,6 @@
-export const CheckIcon = () => {
+import React from 'react'
+
+const CheckIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,3 +16,5 @@ export const CheckIcon = () => {
     </svg>
   )
 }
+
+export default React.memo(CheckIcon)

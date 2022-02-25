@@ -23,9 +23,11 @@ vi.mock('components/icons/caret-down/CaretDownSelectedIcon', () => ({
   default: vi.fn(() => (<></>))
 }))
 
-vi.mock('react', () => ({
-  useState: vi.fn()
-}))
+vi.mock('react', async () => {
+  const actual = await vi.importActual('react')
+
+  return { ...actual, useState: vi.fn() }
+})
 
 const setup = () => render(<AddTodo />)
 

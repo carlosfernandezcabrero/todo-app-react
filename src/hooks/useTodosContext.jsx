@@ -8,13 +8,17 @@ export default function useTodosContext () {
 
   function addTodo (payload) {
     const newTodo = { isCompleted: false, value: payload, id: nanoid() }
-    const newState = [...state, newTodo]
+    const newState = state.concat(newTodo)
+
     saveTodos(newState)
     dispatch(newState)
   }
 
   function modifyTodo (todo) {
-    const newState = state.map(t => todo.id === t.id ? { ...t, ...todo } : t)
+    const newState = state.map((_todo) =>
+      todo.id === _todo.id ? { ..._todo, ...todo } : _todo
+    )
+
     saveTodos(newState)
     dispatch(newState)
   }
@@ -37,9 +41,9 @@ export default function useTodosContext () {
   }
 
   function toggleSelectedTodos () {
-    const isCompleted = !state.every(({ isCompleted }) => isCompleted)
-    const newState = state.map((todo) => ({
-      ...todo,
+    const isCompleted = state.some(({ isCompleted }) => !isCompleted)
+    const newState = state.map((_todo) => ({
+      ..._todo,
       isCompleted
     }))
     dispatch(newState)

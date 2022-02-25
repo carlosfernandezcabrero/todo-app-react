@@ -1,7 +1,7 @@
 import CaretDownIcon from 'components/icons/caret-down/CaretDownIcon'
 import CaretDownSelectedIcon from 'components/icons/caret-down/CaretDownSelectedIcon'
 import useTodosContext from 'hooks/useTodosContext'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import 'styles/AddTodo.css'
 
 export const AddTodo = () => {
@@ -9,7 +9,10 @@ export const AddTodo = () => {
   const [todo, setTodo] = useState('')
 
   const todosEmpty = Boolean(state.length)
-  const isAllCompleted = state.every(({ isCompleted }) => isCompleted)
+  const isAllCompleted = useMemo(
+    () => !state.some(({ isCompleted }) => !isCompleted),
+    [state]
+  )
 
   function handleAddTodo (event) {
     if (event.key === 'Enter') {

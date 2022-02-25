@@ -1,5 +1,5 @@
-import { CheckIcon } from 'components/icons/CheckIcon'
-import { CloseIcon } from 'components/icons/CloseIcon'
+import CheckIcon from 'components/icons/CheckIcon'
+import CloseIcon from 'components/icons/CloseIcon'
 import useTodosContext from 'hooks/useTodosContext'
 import propTypes from 'prop-types'
 import { useState } from 'react'
